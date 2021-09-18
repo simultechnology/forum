@@ -207,3 +207,5 @@ greenmail-run.bat
 
 ### Forum ###
 application.properties
+
+docker/db/data/*

@@ -30,7 +30,7 @@ public class RestErrorController extends BasicErrorController {
     public ResponseEntity<ForumApiExceptionResponse> jsonError(HttpServletRequest request) {
         LOGGER.error("parse JSON error [code: {}, attributes: {}]",
             this.getStatus(request),
-            this.getErrorAttributes(request, false));
+            this.getErrorAttributes(request, null));
 
         HttpStatus status = this.getStatus(request);
         ForumApiExceptionResponse exceptionResponse = new ForumApiExceptionResponse();
@@ -38,13 +38,13 @@ public class RestErrorController extends BasicErrorController {
         exceptionResponse.setStatusCode(status.value());
         exceptionResponse
             .setMessage((String)
-                this.getErrorAttributes(request, false).get("message"));
+                this.getErrorAttributes(request, null).get("message"));
         exceptionResponse
             .setPath((String)
-                this.getErrorAttributes(request, false).get("path"));
+                this.getErrorAttributes(request, null).get("path"));
         exceptionResponse
             .setTimestamp((Date)
-                this.getErrorAttributes(request, false).get("timestamp"));
+                this.getErrorAttributes(request, null).get("timestamp"));
         if (status.series() == Series.CLIENT_ERROR) {
             exceptionResponse.setErrorCode(ErrorCode.CLIENT_ERROR);
         } else if (status.series() == Series.SERVER_ERROR) {
